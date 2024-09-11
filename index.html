@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>For My Love</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Handjet&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      body {
+        font-family: "Handjet", cursive;
+        text-align: center;
+        background-color: #ffe6f0;
+        color: #c40040;
+        margin: 0;
+        padding: 0;
+      }
+      .container {
+        margin-top: 50px;
+      }
+      .option {
+        margin: 20px;
+        padding: 20px;
+        border: 2px solid #c40040;
+        border-radius: 10px;
+        cursor: pointer;
+        display: inline-block;
+        background-color: #ffccd5;
+        transition: background-color 0.3s;
+      }
+      .option:hover {
+        background-color: #ffc1c9;
+      }
+      footer {
+        margin-top: 100px;
+        color: #fff;
+        background-color: #c40040;
+        padding: 10px;
+      }
+      .hidden {
+        display: none;
+      }
+      #heartCounter {
+        position: absolute;
+        top: 10px;
+        left: 10px;
+        font-size: 20px;
+        background-color: #fff;
+        border-radius: 5px;
+        padding: 5px;
+      }
+      .heart {
+        position: absolute;
+        color: red;
+        font-size: 20px;
+        animation: floatUp 2s forwards;
+      }
+      @keyframes floatUp {
+        0% {
+          transform: translateY(0);
+          opacity: 1;
+        }
+        100% {
+          transform: translateY(-100px);
+          opacity: 0;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <h1>For My Love</h1>
+    <div class="container">
+      <div class="option" onclick="showGame()">Clicker Game</div>
+      <div class="option" onclick="showMessages()">Messages</div>
+    </div>
+
+    <!-- Game Section -->
+    <div id="clickerGame" class="hidden">
+      <div id="heartCounter">Hearts: 0</div>
+      <img
+        src="https://images.app.goo.gl/LtTVaNM1joqUrJEE6"
+        alt="my love for youu"
+        onclick="releaseHeart(event)"
+        style="width: 200px"
+      />
+      <audio
+        id="meowSound"
+        src="https://www.fesliyanstudios.com/play-mp3/387"
+        preload="auto"
+      ></audio>
+    </div>
+
+    <!-- Messages Section -->
+    <div id="messages" class="hidden">
+      <p id="randomMessage"></p>
+      <button onclick="showRandomMessage()">Show Another Message</button>
+    </div>
+
+    <footer>9-1-24</footer>
+
+    <script>
+      // Show the clicker game
+      function showGame() {
+        document.getElementById("clickerGame").classList.remove("hidden");
+        document.getElementById("messages").classList.add("hidden");
+      }
+
+      // Show the messages
+      function showMessages() {
+        document.getElementById("clickerGame").classList.add("hidden");
+        document.getElementById("messages").classList.remove("hidden");
+        showRandomMessage();
+      }
+
+      // Heart clicker game logic
+      let hearts = 0;
+      function releaseHeart(event) {
+        const heart = document.createElement("span");
+        heart.textContent = "❤️";
+        heart.className = "heart";
+        heart.style.left = `${event.clientX}px`;
+        heart.style.top = `${event.clientY}px`;
+        document.body.appendChild(heart);
+        hearts++;
+        document.getElementById(
+          "heartCounter"
+        ).textContent = `Hearts: ${hearts}`;
+        document.getElementById("meowSound").play();
+        setTimeout(() => heart.remove(), 2000);
+      }
+
+      // Random message generator
+      const messages = [
+        "I love you always and forever, never forget that.",
+        "You’ll always mean the world to me.",
+        "It’s always just you and me.",
+      ];
+
+      function showRandomMessage() {
+        const randomIndex = Math.floor(Math.random() * messages.length);
+        document.getElementById("randomMessage").textContent =
+          messages[randomIndex];
+      }
+    </script>
+  </body>
+</html>
